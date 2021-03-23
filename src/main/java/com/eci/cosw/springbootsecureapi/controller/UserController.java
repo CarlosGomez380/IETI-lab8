@@ -5,10 +5,7 @@ import com.eci.cosw.springbootsecureapi.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
 import java.util.Date;
@@ -17,6 +14,7 @@ import java.util.Date;
  * @author Santiago Carrillo
  * 8/21/17.
  */
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping( "user" )
 public class UserController
@@ -40,11 +38,11 @@ public class UserController
         String username = login.getUsername();
         String password = login.getPassword();
 
-        //TODO implement logic to verify user credentials
-        User user = userService.getUser( 0l );
+        System.out.println(username);
 
-        if ( user == null )
-        {
+        //TODO implement logic to verify user credentials
+        User user = userService.getUser(0L);
+        if(!username.equals(user.getUsername()) || user == null){
             throw new ServletException( "User username not found." );
         }
 
